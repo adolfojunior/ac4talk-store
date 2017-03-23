@@ -1,0 +1,41 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagement}")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:${jsonSchema2pojoVersion}")
+  }
+}
+
+apply from: rootProject.file("gradle/plugins.gradle")
+
+// core library for services
+project(":base-service-starter") { apply plugin: SpringBootLibrary }
+
+// // APIs
+project(":product-api") { apply plugin: ServiceApiProject }
+project(":cart-api") { apply plugin: ServiceApiProject }
+project(":user-api") { apply plugin: ServiceApiProject }
+project(":inventory-api") { apply plugin: ServiceApiProject }
+
+// // Service implementations
+project(":product-service") {
+  apply plugin: ServiceProject
+  dependencies { compile project(":product-api") }
+}
+project(":cart-service") {
+  apply plugin: ServiceProject
+  dependencies { compile project(":cart-api") }
+}
+project(":user-service") {
+  apply plugin: ServiceProject
+  dependencies { compile project(":user-api") }
+}
+project(":inventory-service") {
+  apply plugin: ServiceProject
+  dependencies { compile project(":inventory-api") }
+}

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ac4talk.core.service.resource.ResourceAutoConfiguration,\
+com.ac4talk.core.service.client.RestClientAutoConfiguration

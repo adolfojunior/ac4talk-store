@@ -1,0 +1,100 @@
+class JavaProject implements Plugin<Project> {
+  void apply(Project project) {
+    project.configure(project) {
+      apply plugin: "java"
+      apply plugin: "idea"
+      apply plugin: "eclipse"
+      apply plugin: "io.spring.dependency-management"
+
+      repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+      }
+      
+      dependencyManagement {
+        imports {
+          mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
+      }
+    }
+  }
+}
+
+class SpringBootLibrary implements Plugin<Project> {
+  void apply(Project project) {
+    project.configure(project) {
+      apply plugin: JavaProject
+      dependencies {
+        compile("org.springframework.boot:spring-boot-starter")
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+        compile("org.springframework.boot:spring-boot-starter-jersey")
+        // compile("org.springframework.cloud:spring-cloud-starter-consul-config:${springCloudVersion}")
+        // compile("org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudVersion}")
+        compile("org.glassfish.jersey.ext:jersey-proxy-client:${jerseyProxyClientVersion}")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+      }
+    }
+  }
+}
+
+class ServiceApiProject implements Plugin<Project> {
+   void apply(Project project) {
+      project.configure(project) {
+        apply plugin: JavaProject
+        apply plugin: "jsonschema2pojo"
+
+        dependencies {
+          compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
+          compile("javax.validation:validation-api:1.1.0.Final")
+          compile("com.fasterxml.jackson.core:jackson-databind:2.8.7")
+        }
+
+        // add JSON sourceSets
+        sourceSets {
+          json {
+            java
+            resources
+          }
+        }
+
+        jsonSchema2Pojo {
+          source = files(sourceSets.json.resources.srcDirs)
+          targetDirectory = file(sourceSets.json.java.srcDirs[0])  
+          annotationStyle = 'jackson'
+          generateBuilders = true
+          useDoubleNumbers = true
+          useLongIntegers = true
+          useCommonsLang3 = false
+          includeToString = false
+          includeHashcodeAndEquals = false
+          includeJsr303Annotations = true
+          serializable = true
+          removeOldOutput = true
+        }
+      }
+   }
+}
+
+class ServiceProject implements Plugin<Project> {
+  void apply(Project project) {
+    project.configure(project) {
+      apply plugin: JavaProject
+      apply plugin: "org.springframework.boot"
+
+      dependencies {
+        compile( project.project(":base-service-starter") ){
+          exclude module:"spring-boot-starter-tomcat"
+        }
+        compile("org.springframework.boot:spring-boot-starter-jetty")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+      }
+    }
+  }
+}
+
+ext.JavaProject = JavaProject
+ext.ServiceApiProject = ServiceApiProject
+ext.ServiceProject = ServiceProject
+ext.SpringBootLibrary = SpringBootLibrary

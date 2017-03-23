@@ -1,0 +1,13 @@
+rootProject.name = 'ac4talk-store'
+
+include 'base-service-starter'
+
+include 'product-api'
+include 'cart-api'
+include 'user-api'
+include 'inventory-api'
+
+include 'product-service'
+include 'cart-service'
+include 'user-service'
+include 'inventory-service'

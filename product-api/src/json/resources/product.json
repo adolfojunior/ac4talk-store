@@ -1,0 +1,27 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"javaType": "com.ac4talk.store.product.model.Product",
+	"type": "object",
+	"properties": {
+		"description": {
+			"id": "description",
+			"type": "string"
+		},
+		"id": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		},
+		"price": {
+			"type": "number"
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"uniqueItems": true
+			}
+		}
+	}
+}

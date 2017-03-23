@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: product-service
+  jersey:
+    application-path: /v1
+
+management:
+  context-path: /app
+  security:
+    enabled: false
