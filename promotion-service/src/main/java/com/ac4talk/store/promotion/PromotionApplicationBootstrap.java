@@ -1,12 +1,12 @@
-package com.ac4talk.store.inventory;
+package com.ac4talk.store.promotion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InventoryApplicationBootstrap {
+public class PromotionApplicationBootstrap {
 
   public static void main(String[] args) {
-    SpringApplication.run(InventoryApplicationBootstrap.class, args);
+    SpringApplication.run(PromotionApplicationBootstrap.class, args);
   }
 }

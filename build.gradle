@@ -14,13 +14,23 @@ buildscript {
 apply from: rootProject.file("gradle/plugins.gradle")
 
 // core library for services
-project(":base-service-starter") { apply plugin: SpringBootLibrary }
+project(":base-service-starter") {
+  apply plugin: SpringBootLibrary
+}
 
 // // APIs
-project(":product-api") { apply plugin: ServiceApiProject }
-project(":cart-api") { apply plugin: ServiceApiProject }
-project(":user-api") { apply plugin: ServiceApiProject }
-project(":inventory-api") { apply plugin: ServiceApiProject }
+project(":product-api") {
+  apply plugin: ServiceApiProject
+}
+project(":cart-api") {
+  apply plugin: ServiceApiProject
+}
+project(":user-api") {
+  apply plugin: ServiceApiProject
+}
+project(":promotion-api") {
+  apply plugin: ServiceApiProject
+}
 
 // // Service implementations
 project(":product-service") {
@@ -35,7 +45,7 @@ project(":user-service") {
   apply plugin: ServiceProject
   dependencies { compile project(":user-api") }
 }
-project(":inventory-service") {
+project(":promotion-service") {
   apply plugin: ServiceProject
-  dependencies { compile project(":inventory-api") }
+  dependencies { compile project(":promotion-api") }
 }
