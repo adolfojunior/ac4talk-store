@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "javaType": "com.ac4talk.store.promotion.model.Promotion",
+  "type": "object",
+  "required": [ "code", "startingDate", "expirationDate" ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "discountPercentage": {
+      "type": "number"
+    },
+    "discountValue": {
+      "type": "number"
+    },
+    "minimunValue": {
+      "type": "number"
+    },
+    "maximunDiscount": {
+      "type": "number"
+    },
+    "startingDate": {
+      "format": "date-time"
+    },
+    "expirationDate": {
+      "format": "date-time"
+    }
+  }
+}

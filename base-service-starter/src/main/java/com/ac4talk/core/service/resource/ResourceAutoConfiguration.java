@@ -15,14 +15,20 @@ import org.springframework.context.annotation.Configuration;
 public class ResourceAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean(ResourceConfig.class)
+  @ConditionalOnMissingBean
   public ResourceConfig resourceConfig() {
     return new ResourceConfig();
   }
 
   @Bean
-  @ConditionalOnMissingBean(ResourceAutoRegistrar.class)
+  @ConditionalOnMissingBean
   public ResourceAutoRegistrar resourceAutoConfig(ApplicationContext applicationContext) {
     return new ResourceAutoRegistrar(applicationContext);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public ResourceExceptionMapper resourceExceptionMapper() {
+    return new ResourceExceptionMapper();
   }
 }

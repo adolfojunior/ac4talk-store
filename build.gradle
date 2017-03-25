@@ -13,39 +13,81 @@ buildscript {
 
 apply from: rootProject.file("gradle/plugins.gradle")
 
-// core library for services
+// Core library for services
+project(":base-service-api") {
+  apply plugin: ApiProject
+}
+
+project(":base-service-client") {
+  apply plugin: SpringBootLibrary
+  dependencies {
+    compile("org.glassfish.jersey.core:jersey-client:${jerseyClientVersion}")
+    compile("org.glassfish.jersey.ext:jersey-proxy-client:${jerseyClientVersion}")
+  }
+}
+
 project(":base-service-starter") {
   apply plugin: SpringBootLibrary
+  dependencies {
+    compile project(":base-service-api")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+      exclude module:"spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-jersey")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    // compile("org.springframework.cloud:spring-cloud-starter-consul-config:${springCloudVersion}")
+    // compile("org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudVersion}")
+  }
 }
 
-// // APIs
-project(":product-api") {
-  apply plugin: ServiceApiProject
-}
 project(":cart-api") {
-  apply plugin: ServiceApiProject
+  apply plugin: ApiProject
 }
-project(":user-api") {
-  apply plugin: ServiceApiProject
-}
-project(":promotion-api") {
-  apply plugin: ServiceApiProject
-}
-
-// // Service implementations
-project(":product-service") {
-  apply plugin: ServiceProject
-  dependencies { compile project(":product-api") }
+project(":cart-client") {
+  apply plugin: ServiceClientProject
+  dependencies {
+    compile project(":cart-api")
+  }
 }
 project(":cart-service") {
   apply plugin: ServiceProject
-  dependencies { compile project(":cart-api") }
+  dependencies {
+    compile project(":cart-api")
+    compile project(":product-api")
+    compile project(":promotion-api")
+  }
 }
-project(":user-service") {
+
+project(":product-api") {
+  apply plugin: ApiProject
+}
+project(":product-client") {
+  apply plugin: ServiceClientProject
+  dependencies {
+    compile project(":product-api")
+  }
+}
+project(":product-service") {
   apply plugin: ServiceProject
-  dependencies { compile project(":user-api") }
+  dependencies {
+    compile project(":product-api")
+  }
+}
+
+project(":promotion-api") {
+  apply plugin: ApiProject
+}
+project(":promotion-client") {
+  apply plugin: ServiceClientProject
+  dependencies {
+    compile project(":promotion-api")
+  }
 }
 project(":promotion-service") {
   apply plugin: ServiceProject
-  dependencies { compile project(":promotion-api") }
+  dependencies {
+    compile project(":promotion-api")
+  }
 }
+

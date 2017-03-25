@@ -1,8 +1,8 @@
 .gradle
 .classpath
 .project
-.settings
-bin
-build
+.settings/
+bin/
+build/
 
 !gradle/wrapper/*.jar

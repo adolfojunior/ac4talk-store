@@ -11,7 +11,7 @@ class JavaProject implements Plugin<Project> {
         mavenCentral()
         jcenter()
       }
-      
+      // Will manage common library versions
       dependencyManagement {
         imports {
           mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
@@ -27,19 +27,13 @@ class SpringBootLibrary implements Plugin<Project> {
       apply plugin: JavaProject
       dependencies {
         compile("org.springframework.boot:spring-boot-starter")
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile("org.springframework.boot:spring-boot-starter-actuator")
-        compile("org.springframework.boot:spring-boot-starter-jersey")
-        // compile("org.springframework.cloud:spring-cloud-starter-consul-config:${springCloudVersion}")
-        // compile("org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudVersion}")
-        compile("org.glassfish.jersey.ext:jersey-proxy-client:${jerseyProxyClientVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test")
       }
     }
   }
 }
 
-class ServiceApiProject implements Plugin<Project> {
+class ApiProject implements Plugin<Project> {
    void apply(Project project) {
       project.configure(project) {
         apply plugin: JavaProject
@@ -48,7 +42,7 @@ class ServiceApiProject implements Plugin<Project> {
         dependencies {
           compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
           compile("javax.validation:validation-api:1.1.0.Final")
-          compile("com.fasterxml.jackson.core:jackson-databind:2.8.7")
+          compile("com.fasterxml.jackson.core:jackson-databind")
         }
 
         // add JSON sourceSets
@@ -77,24 +71,33 @@ class ServiceApiProject implements Plugin<Project> {
    }
 }
 
+class ServiceClientProject implements Plugin<Project> {
+  void apply(Project project) {
+    project.configure(project) {
+      apply plugin: SpringBootLibrary
+
+      dependencies {
+        compile( project.project(":base-service-client") )
+      }
+    }
+  }
+}
+
 class ServiceProject implements Plugin<Project> {
   void apply(Project project) {
     project.configure(project) {
-      apply plugin: JavaProject
-      apply plugin: "org.springframework.boot"
+      apply plugin: SpringBootLibrary
 
+      apply plugin: "org.springframework.boot"
       dependencies {
-        compile( project.project(":base-service-starter") ){
-          exclude module:"spring-boot-starter-tomcat"
-        }
-        compile("org.springframework.boot:spring-boot-starter-jetty")
-        testCompile("org.springframework.boot:spring-boot-starter-test")
+        compile( project.project(":base-service-starter") )
       }
     }
   }
 }
 
 ext.JavaProject = JavaProject
-ext.ServiceApiProject = ServiceApiProject
-ext.ServiceProject = ServiceProject
 ext.SpringBootLibrary = SpringBootLibrary
+ext.ApiProject = ApiProject
+ext.ServiceClientProject = ServiceClientProject
+ext.ServiceProject = ServiceProject
