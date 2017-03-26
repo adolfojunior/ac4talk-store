@@ -17,6 +17,16 @@ class JavaProject implements Plugin<Project> {
           mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
         }
       }
+      idea {
+        module {
+          downloadSources = true
+        }
+      }
+      eclipse {
+        classpath {
+          downloadSources = true
+        }
+      }
     }
   }
 }
@@ -71,6 +81,18 @@ class ApiProject implements Plugin<Project> {
    }
 }
 
+class ServiceApiProject implements Plugin<Project> {
+  void apply(Project project) {
+    project.configure(project) {
+      apply plugin: ApiProject
+
+      dependencies {
+        compile( project.project(":base-service-api") )
+      }
+    }
+  }
+}
+
 class ServiceClientProject implements Plugin<Project> {
   void apply(Project project) {
     project.configure(project) {
@@ -99,5 +121,6 @@ class ServiceProject implements Plugin<Project> {
 ext.JavaProject = JavaProject
 ext.SpringBootLibrary = SpringBootLibrary
 ext.ApiProject = ApiProject
+ext.ServiceApiProject = ServiceApiProject
 ext.ServiceClientProject = ServiceClientProject
 ext.ServiceProject = ServiceProject

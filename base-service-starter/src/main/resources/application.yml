@@ -1,6 +1,6 @@
 spring:
   jersey:
-    application-path: /v1
+    application-path: /api
 
 management:
   context-path: /app
