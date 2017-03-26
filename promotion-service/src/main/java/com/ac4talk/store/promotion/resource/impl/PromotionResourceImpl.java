@@ -1,4 +1,4 @@
-package com.ac4talk.store.promotion.resource;
+package com.ac4talk.store.promotion.resource.impl;
 
 
 import javax.ws.rs.WebApplicationException;

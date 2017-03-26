@@ -1,4 +1,4 @@
-package com.ac4talk.store.product.service;
+package com.ac4talk.store.product.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ac4talk.store.product.entity.ProductEntity;
 import com.ac4talk.store.product.repository.ProductRepository;
+import com.ac4talk.store.product.service.ProductService;
 
 @Service
 @Transactional(readOnly = true)

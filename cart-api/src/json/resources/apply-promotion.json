@@ -1,0 +1,11 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"javaType": "com.ac4talk.store.product.model.ApplyPromotion",
+	"type": "object",
+	"properties": {
+		"promotionCode": {
+			"type": "string",
+			"required": true
+		}
+  }
+}

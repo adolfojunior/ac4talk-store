@@ -30,6 +30,6 @@ public abstract class AbstractResource {
     if (collection.isEmpty()) {
       return Response.noContent().build();
     }
-    return Response.ok().entity(collection).build();
+    return Response.ok(collection).build();
   }
 }

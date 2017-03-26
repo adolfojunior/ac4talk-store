@@ -1,0 +1,13 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"javaType": "com.ac4talk.store.product.model.AddItem",
+	"type": "object",
+	"properties": {
+		"productId": {
+			"type": "string"
+		},
+		"qtd": {
+			"type": "integer"
+		}
+  }
+}

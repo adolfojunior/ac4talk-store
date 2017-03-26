@@ -1,4 +1,4 @@
-package com.ac4talk.store.product.resource;
+package com.ac4talk.store.product.resource.impl;
 
 
 import java.util.List;

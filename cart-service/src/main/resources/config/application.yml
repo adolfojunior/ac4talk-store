@@ -1,3 +1,11 @@
 spring:
   application:
     name: cart-service
+
+rest:
+  client:
+    config:
+      product:
+        url: http://product.lvh.me:8081/api
+      promotion:
+        url: http://promotion.lvh.me:8082/api

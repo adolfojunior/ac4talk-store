@@ -30,6 +30,7 @@ project(":base-service-starter") {
   apply plugin: SpringBootLibrary
   dependencies {
     compile project(":base-service-api")
+    compile project(":base-service-client")
     compile("org.springframework.boot:spring-boot-starter-web") {
       exclude module:"spring-boot-starter-tomcat"
     }
@@ -55,8 +56,8 @@ project(":cart-service") {
   apply plugin: ServiceProject
   dependencies {
     compile project(":cart-api")
-    compile project(":product-api")
-    compile project(":promotion-api")
+    compile project(":product-client")
+    compile project(":promotion-client")
   }
 }
 

@@ -18,11 +18,11 @@ public class RestClientFactory {
     this.restClientProperties = restClientProperties;
   }
 
-  public <T> T create(final Class<T> jaxrsInterface, final String clientName) {
+  public <T extends RestClient> T create(final Class<T> jaxrsInterface, final String clientName) {
     return create(jaxrsInterface, restClientProperties.getClient(clientName));
   }
 
-  public <T> T create(final Class<T> jaxrsInterface, final ClientProperties clientProperties) {
+  public <T extends RestClient> T create(final Class<T> jaxrsInterface, final ClientProperties clientProperties) {
     try {
       return createClient(jaxrsInterface, createWebTarget(clientProperties));
     } catch (URISyntaxException e) {
@@ -30,7 +30,7 @@ public class RestClientFactory {
     }
   }
 
-  protected <T> T createClient(final Class<T> jaxrsInterface, final WebTarget webTarget) {
+  protected <T extends RestClient> T createClient(final Class<T> jaxrsInterface, final WebTarget webTarget) {
     return WebResourceFactory.newResource(jaxrsInterface, webTarget);
   }
 

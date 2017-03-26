@@ -4,5 +4,6 @@
 .settings/
 bin/
 build/
+*.log
 
 !gradle/wrapper/*.jar

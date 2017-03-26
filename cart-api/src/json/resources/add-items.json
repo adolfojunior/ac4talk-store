@@ -1,0 +1,13 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"javaType": "com.ac4talk.store.product.model.AddItems",
+	"type": "object",
+	"properties": {
+		"items": {
+			"type": "array",
+			"items": {
+			  "$ref": "add-item.json"
+			}
+		}
+  }
+}
