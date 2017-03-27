@@ -1,6 +1,11 @@
 spring:
   application:
     name: cart-service
+  profiles:
+    active: dev
+
+server:
+  port: 8080
 
 rest:
   client:

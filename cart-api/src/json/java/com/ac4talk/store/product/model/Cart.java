@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
+import com.ac4talk.store.cart.model.Item;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "version",
     "promotions",
-    "items"
+    "items",
+    "totalPrice",
+    "countItems"
 })
 public class Cart implements Serializable
 {
@@ -33,11 +36,15 @@ public class Cart implements Serializable
     private List<String> promotions = new ArrayList<String>();
     @JsonProperty("items")
     @Valid
-    private List<AddItem> items = new ArrayList<AddItem>();
+    private List<Item> items = new ArrayList<Item>();
+    @JsonProperty("totalPrice")
+    private Double totalPrice;
+    @JsonProperty("countItems")
+    private Double countItems;
     @JsonIgnore
     @Valid
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = 5878301886861363738L;
+    private final static long serialVersionUID = -7566509436676015845L;
 
     @JsonProperty("id")
     public String getId() {
@@ -85,17 +92,47 @@ public class Cart implements Serializable
     }
 
     @JsonProperty("items")
-    public List<AddItem> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
     @JsonProperty("items")
-    public void setItems(List<AddItem> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
-    public Cart withItems(List<AddItem> items) {
+    public Cart withItems(List<Item> items) {
         this.items = items;
+        return this;
+    }
+
+    @JsonProperty("totalPrice")
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    @JsonProperty("totalPrice")
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Cart withTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+        return this;
+    }
+
+    @JsonProperty("countItems")
+    public Double getCountItems() {
+        return countItems;
+    }
+
+    @JsonProperty("countItems")
+    public void setCountItems(Double countItems) {
+        this.countItems = countItems;
+    }
+
+    public Cart withCountItems(Double countItems) {
+        this.countItems = countItems;
         return this;
     }
 

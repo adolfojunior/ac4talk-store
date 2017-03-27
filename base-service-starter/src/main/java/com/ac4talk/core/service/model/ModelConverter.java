@@ -4,9 +4,9 @@ import java.util.function.Function;
 
 public interface ModelConverter {
 
-  <M, T> T convert(M model, Class<T> valueType);
+  <T, V> V convert(T model, Class<V> valueType);
 
-  default <M, T> Function<M, T> mapper(final Class<T> valueType) {
+  default <T, V> Function<T, V> mapper(final Class<V> valueType) {
     return (model) -> {
       return convert(model, valueType);
     };

@@ -1,8 +1,20 @@
 spring:
+  profiles:
+    active: dev
   jersey:
     application-path: /api
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
 
 management:
   context-path: /app
   security:
     enabled: false
+
+---
+spring:
+  profiles: dev
+  jackson:
+    serialization:
+      indent_output: true

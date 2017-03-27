@@ -7,7 +7,10 @@ import com.ac4talk.store.product.model.Cart;
 
 public interface CartService {
 
+  Cart getOrCreate();
+
   Cart addItems(CartId cartId, AddItems addItems);
 
   Cart applyPromotion(CartId cartId, ApplyPromotion addItems);
+
 }

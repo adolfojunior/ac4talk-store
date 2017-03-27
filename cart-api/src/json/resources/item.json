@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"javaType": "com.ac4talk.store.cart.model.Item",
+	"type": "object",
+	"properties": {
+		"position": {
+			"type": "integer"
+		},
+		"productId": {
+			"type": "string"
+		},
+		"qtd": {
+			"type": "integer"
+		},
+		"price": {
+			"type": "number"
+		}
+	}
+}

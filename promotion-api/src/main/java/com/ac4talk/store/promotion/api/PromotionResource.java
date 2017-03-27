@@ -7,6 +7,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.ac4talk.core.service.resource.ResponseContent;
 import com.ac4talk.store.promotion.model.Promotion;
 
 @Path("promotion")
@@ -15,6 +16,6 @@ import com.ac4talk.store.promotion.model.Promotion;
 public interface PromotionResource {
 
   @GET
-  @Path("{code}")
-  Promotion findByCode(@PathParam("code") String code);
+  @Path("{promotionCode}")
+  ResponseContent<Promotion> findByCode(@PathParam("promotionCode") String promotionCode);
 }

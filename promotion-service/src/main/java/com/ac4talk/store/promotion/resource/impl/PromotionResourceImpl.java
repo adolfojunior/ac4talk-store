@@ -1,11 +1,11 @@
 package com.ac4talk.store.promotion.resource.impl;
 
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response.Status;
-
 import org.springframework.stereotype.Controller;
 
+import com.ac4talk.core.service.message.MessageBuilder;
+import com.ac4talk.core.service.resource.ResponseContent;
+import com.ac4talk.core.service.resource.ResponseContentBuilder;
 import com.ac4talk.store.promotion.api.PromotionResource;
 import com.ac4talk.store.promotion.model.Promotion;
 import com.ac4talk.store.promotion.service.InvalidPromotionException;
@@ -21,11 +21,14 @@ public class PromotionResourceImpl implements PromotionResource {
   }
 
   @Override
-  public Promotion findByCode(String code) {
+  public ResponseContent<Promotion> findByCode(final String promotionCode) {
     try {
-      return promotionService.findByCode(code);
+      return ResponseContentBuilder.<Promotion>ok()
+          .content(promotionService.findByCode(promotionCode)).build();
     } catch (InvalidPromotionException e) {
-      throw new WebApplicationException(code, e, Status.NOT_FOUND);
+      return ResponseContentBuilder.<Promotion>notFound()
+          .addMessage(MessageBuilder.error().message("Invalid promotion: " + promotionCode).build())
+          .build();
     }
   }
 }

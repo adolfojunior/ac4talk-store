@@ -4,6 +4,10 @@ spring:
   application:
     name: product-service
 
+
+server:
+  port: 8081
+
 ---
 spring:
   profiles: dev

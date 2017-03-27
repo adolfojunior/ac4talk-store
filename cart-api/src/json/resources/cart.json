@@ -19,8 +19,17 @@
 		"items": {
 			"type": "array",
 			"items": {
-				"$ref": "add-item.json"
+				"$ref": "item.json"
 			}
-		}
+		},
+    "totalPrice": {
+      "type": "number"
+    },
+		"totalPrice": {
+      "type": "number"
+    },
+    "countItems": {
+      "type": "number"
+    }
 	}
 }
