@@ -1,17 +1,18 @@
 package com.ac4talk.store.promotion.client;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ac4talk.core.service.client.RestClient;
 import com.ac4talk.core.service.client.RestClientFactory;
+import com.ac4talk.store.promotion.api.PromotionResource;
 
 @Configuration
 public class PromotionClientConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean
-  public PromotionClient promotionClient(RestClientFactory clientFactory) {
-    return clientFactory.create(PromotionClient.class, "promotion");
+  public RestClient<PromotionResource> promotionClient(RestClientFactory clientFactory) {
+    final PromotionResource resource = clientFactory.create(PromotionResource.class, "promotion");
+    return RestClient.of(resource);
   }
 }

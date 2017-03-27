@@ -20,5 +20,4 @@ curl -X GET "http://localhost:8082/api/promotion/PROM20"
 
 curl -X GET "http://localhost:8081/api/product/all"
 curl -X GET "http://localhost:8081/api/product/p1"
-curl -X GET "http://localhost:8081/api/product/p1"
 ```

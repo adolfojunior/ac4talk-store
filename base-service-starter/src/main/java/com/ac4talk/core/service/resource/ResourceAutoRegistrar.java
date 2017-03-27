@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.context.ApplicationContext;
 
-import com.ac4talk.core.service.client.RestClient;
-
 public class ResourceAutoRegistrar implements ResourceConfigCustomizer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceAutoConfiguration.class);
@@ -31,16 +29,9 @@ public class ResourceAutoRegistrar implements ResourceConfigCustomizer {
 
   private void register(final ResourceConfig config, final Collection<Object> beans) {
     for (Object bean : beans) {
-      if (isValid(bean)) {
-        LOGGER.info("JAX-RS auto registered {}", bean.getClass().getName());
-        config.register(bean);
-      }
+      LOGGER.info("JAX-RS auto registered {}", bean.getClass().getName());
+      config.register(bean);
     }
-  }
-
-  protected boolean isValid(Object bean) {
-    // RestClient also implements JAX-RS resource interfaces
-    return !(bean instanceof RestClient);
   }
 
   protected Collection<Object> getResourceBeans() {

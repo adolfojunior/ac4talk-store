@@ -6,43 +6,51 @@ import com.ac4talk.core.service.message.Message;
 
 public class ResponseContentBuilder<T> {
 
-  public static <D> ResponseContentBuilder<D> to(final Status status) {
-    return new ResponseContentBuilder<D>().status(status);
+  public static <C> ResponseContentBuilder<C> to(final Status status) {
+    return new ResponseContentBuilder<C>().status(status);
   }
 
-  public static <D> ResponseContentBuilder<D> ok() {
+  public static <C> ResponseContentBuilder<C> ok() {
     return to(Status.OK);
   }
 
-  public static <D> ResponseContentBuilder<D> noContent() {
+  public static <C> ResponseContentBuilder<C> ok(C content) {
+    return ResponseContentBuilder.<C>ok().content(content);
+  }
+
+  public static <C> ResponseContentBuilder<C> noContent() {
     return to(Status.NO_CONTENT);
   }
 
-  public static <D> ResponseContentBuilder<D> notFound() {
+  public static <C> ResponseContentBuilder<C> notFound() {
     return to(Status.NOT_FOUND);
   }
 
-  public static <D> ResponseContentBuilder<D> created() {
+  public static <C> ResponseContentBuilder<C> created() {
     return to(Status.CREATED);
   }
 
-  public static <D> ResponseContentBuilder<D> gone() {
+  public static <C> ResponseContentBuilder<C> created(C content) {
+    return ResponseContentBuilder.<C>created().content(content);
+  }
+
+  public static <C> ResponseContentBuilder<C> gone() {
     return to(Status.GONE);
   }
 
-  public static <D> ResponseContentBuilder<D> serverError() {
+  public static <C> ResponseContentBuilder<C> serverError() {
     return to(Status.INTERNAL_SERVER_ERROR);
   }
 
-  public static <D> ResponseContentBuilder<D> notImplemented() {
+  public static <C> ResponseContentBuilder<C> notImplemented() {
     return to(Status.NOT_IMPLEMENTED);
   }
 
-  public static <D> ResponseContentBuilder<D> bagGateway() {
+  public static <C> ResponseContentBuilder<C> bagGateway() {
     return to(Status.BAD_GATEWAY);
   }
 
-  public static <D> ResponseContentBuilder<D> bagRequest() {
+  public static <C> ResponseContentBuilder<C> bagRequest() {
     return to(Status.BAD_REQUEST);
   }
 

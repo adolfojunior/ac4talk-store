@@ -35,6 +35,6 @@ public class ProductResourceImpl extends AbstractResource implements ProductReso
   @Override
   public ResponseContent<Product> findById(final String id) {
     final Product result = productService.findById(id);
-    return ResponseContentBuilder.<Product>ok().content(result).build();
+    return ResponseContentBuilder.<Product>ok(result).build();
   }
 }

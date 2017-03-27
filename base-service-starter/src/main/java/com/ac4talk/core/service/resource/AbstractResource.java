@@ -15,6 +15,6 @@ public abstract class AbstractResource {
     if (list.isEmpty()) {
       return ResponseContentBuilder.<List<T>>noContent().content(list);
     }
-    return ResponseContentBuilder.<List<T>>ok().content(list);
+    return ResponseContentBuilder.<List<T>>ok(list);
   }
 }

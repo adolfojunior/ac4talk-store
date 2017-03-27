@@ -23,19 +23,18 @@ public class CartResourceImpl extends AbstractResource implements CartResource {
 
   @Override
   public ResponseContent<Cart> getCart() {
-    return ResponseContentBuilder.<Cart>ok().content(cartService.getOrCreate()).build();
+    return ResponseContentBuilder.<Cart>ok(cartService.getOrCreate()).build();
   }
 
   @Override
   public ResponseContent<Cart> addItems(final CartId cartId, final AddItems addItems) {
-    return ResponseContentBuilder.<Cart>ok().content(cartService.addItems(cartId, addItems))
-        .build();
+    return ResponseContentBuilder.<Cart>ok(cartService.addItems(cartId, addItems)).build();
   }
 
   @Override
   public ResponseContent<Cart> applyPromotion(final CartId cartId,
       final ApplyPromotion applyPromotion) {
-    return ResponseContentBuilder.<Cart>ok()
-        .content(cartService.applyPromotion(cartId, applyPromotion)).build();
+    return ResponseContentBuilder.<Cart>ok(cartService.applyPromotion(cartId, applyPromotion))
+        .build();
   }
 }

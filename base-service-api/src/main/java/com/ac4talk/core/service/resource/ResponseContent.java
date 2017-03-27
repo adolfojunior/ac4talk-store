@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"status", "statusCode", "family", "messages", "content"})
+@JsonPropertyOrder({"status", "messages", "content"})
 public class ResponseContent<T> {
 
   private Status status;
@@ -47,10 +47,12 @@ public class ResponseContent<T> {
     return status;
   }
 
+  @JsonIgnore
   public Family getFamily() {
     return getStatus().getFamily();
   }
 
+  @JsonIgnore
   public int getStatusCode() {
     return getStatus().getStatusCode();
   }
