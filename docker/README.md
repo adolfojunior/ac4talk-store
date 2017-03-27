@@ -1,31 +1,57 @@
+### Running Consul
 
+- First create a network
+```shell
+docker network create consul-net
+```
 
-docker run -d \
-  --cap-add NET_ADMIN \
-  --restart=always \
-  --link consul:consul \
-  --name haproxy \
-  -h haproxy \
-  -p 80:80 \
-  -p 443:443 \
-  subitolabs/haproxy-consul-template --consul consul:8500
-
-docker run -d \
+```shell
+docker run -it --rm \
+  --net consul-net \
   --name consul \
+  -h consul \
   -p 8400:8400 \
   -p 8500:8500 \
   -p 8600:53/udp \
-  -h consul \
   progrium/consul -server -bootstrap -ui-dir /ui
+```
 
+- Access the Consul UI (http://consul.lvh.me:8500/ui/#/dc1/services)
 
+### Running HAProxy
 
+```shell
+docker run -d \
+  --net consul-net \
+  --restart always \
+  --name haproxy \
+  -h haproxy \
+  -e HAPROXY_DOMAIN=lvh.me \
+  -e CONSUL_CONNECT=consul:8500 \
+  -p 80:80 \
+  asteris/haproxy-consul
+```
 
+- Check if consul is updating the config
 
+```
+docker exec -it haproxy sh
+```
 
-docker run --restart=always -d -p 8500:8500 --name consul -e "SERVICE_IGNORE=true" progrium/consul -server -bootstrap-expect 1
+```
+docker exec -it haproxy cat /haproxy/haproxy.cfg
+```
 
-docker run --restart=always --name registrator --link "consul:consul"  -v /var/run/docker.sock:/tmp/docker.sock -d -e "SERVICE_IGNORE=true"  gliderlabs/registrator -internal  consul://consul:8500
+### Running each application
 
-docker run --cap-add NET_ADMIN --restart=always --name haproxy --link consul:consul -v $(pwd)/haproxy.ctmpl:/etc/haproxy/haproxy.ctmpl:ro -p 80:80 subitolabs/haproxy-consul-template --consul consul:8500
-
+```shell
+docker run -it --rm \
+  --net consul-net \
+  --name promotion-service2 \
+  -v $(pwd)/promotion-service/build/libs:/usr/src/app \
+  -w /usr/src/app \
+  -e SPRING_CLOUD_CONSUL_HOST=consul \
+  -e SERVER_PORT=8080 \
+  -p 8080 \
+  openjdk:8-alpine java -jar promotion-service-0.0.1-SNAPSHOT.jar 
+```

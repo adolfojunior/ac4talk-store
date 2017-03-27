@@ -14,7 +14,25 @@ management:
 
 ---
 spring:
+  profiles: consul
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        tags: ${spring.application.name},${HOSTNAME}
+        instanceId: ${spring.application.name}-${HOSTNAME}-${server.port}
+        healthCheckPath: ${management.context-path}/health
+        healthCheckInterval: 5s
+
+---
+spring:
   profiles: dev
   jackson:
     serialization:
       indent_output: true
+
+logging:
+  level:
+    org.springframework.cloud.consul: DEBUG
+

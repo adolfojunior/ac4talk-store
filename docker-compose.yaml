@@ -1,0 +1,6 @@
+networks:
+  consul-net:
+    driver: bridge
+  default:
+    external:
+      name: bridge

@@ -39,7 +39,7 @@ project(":base-service-starter") {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.data:spring-data-commons")
     // compile("org.springframework.cloud:spring-cloud-starter-consul-config:${springCloudVersion}")
-    // compile("org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-consul-discovery:${springCloudVersion}")
   }
 }
 
