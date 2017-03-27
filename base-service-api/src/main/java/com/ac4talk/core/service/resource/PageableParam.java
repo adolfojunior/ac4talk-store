@@ -19,7 +19,7 @@ public class PageableParam {
     return page;
   }
 
-  public void setPage(int page) {
+  public void setPage(final int page) {
     this.page = page;
   }
 
@@ -27,7 +27,7 @@ public class PageableParam {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(final int size) {
     this.size = size;
   }
 }
