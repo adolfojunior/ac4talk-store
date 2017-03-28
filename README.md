@@ -16,7 +16,7 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 
 ### Starting all the services
 
-```
+```shell
 # configure project to your IDE
 ./gradlew cleanEclipse eclipse
 
@@ -51,20 +51,20 @@ docker-compose logs -f haproxy
 
 - Startup all the services
 
-```
+```shell
 docker-compose up -d promotion product cart
 docker-compose logs -f ${SERVICE}
 ```
 
 - Check if `consul-template` is updating the config
 
-```
+```shell
 docker exec -it ac4talkstore_haproxy_1 cat /haproxy/haproxy.cfg
 ```
 
 ### Testing services
 
-```
+```shell
 curl -X GET "http://promotion-service.lvh.me/api/promotion/PROM20"
 
 curl -X GET "http://product-service.lvh.me/api/product/all"
@@ -72,9 +72,11 @@ curl -X GET "http://product-service.lvh.me/api/product/p1"
 
 curl -X GET "http://cart-service.lvh.me/api/cart"
 
-curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" -d '{ "promotionCode": "PROM20" }'
+curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
+  -d '{ "promotionCode": "PROM20" }'
 
-curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
+curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
+  -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
 ```
 
 ### References:
