@@ -14,23 +14,24 @@ To build the project you need JDK 8 (or run it using docker)
 docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 ```
 
-```
-
 ### Starting all the services
 
 ```
-./gradlew clean cleanEclipse eclipse
+# configure project to your IDE
+./gradlew cleanEclipse eclipse
 
-./gradlew build
+# build it!
+./gradlew clean build
 
+# run each one
 ./gradlew :promotion-service:bootRun
+./gradlew :product-service:bootRun
+./gradlew :cart-service:bootRun
 ```
 
-## Running it with Consul and HAProxy
+## Providing a Docker envinroment with Consul and HAProxy
 
-### Running Consul
-
-- Startup Consul
+- Startup `Consul`
 
 ```shell
 docker-compose up -d consul
@@ -40,7 +41,7 @@ docker-compose logs -f consul
 
 Access the Consul UI (http://consul.lvh.me:8500/ui/#/dc1/services)
 
-- Startup HAProxy
+- Startup `HAProxy`
 
 ```shell
 docker-compose up -d haproxy
@@ -48,17 +49,17 @@ docker-compose up -d haproxy
 docker-compose logs -f haproxy
 ```
 
-- Check if consul is updating the config
-
-```
-docker exec -it ac4talkstore_haproxy_1 cat /haproxy/haproxy.cfg
-```
-
-- Startup Services
+- Startup all the services
 
 ```
 docker-compose up -d promotion product cart
 docker-compose logs -f ${SERVICE}
+```
+
+- Check if `consul-template` is updating the config
+
+```
+docker exec -it ac4talkstore_haproxy_1 cat /haproxy/haproxy.cfg
 ```
 
 ### Testing services
@@ -83,4 +84,6 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" -d
 - [Consul Template](https://github.com/hashicorp/consul-template)
 - [HAProxy](https://cbonte.github.io/haproxy-dconv/)
 - [Docker Compose](https://docs.docker.com/compose/)
+
+Thanks to https://github.com/levicook for the lvh.me domain trick :)
 
