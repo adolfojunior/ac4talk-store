@@ -107,9 +107,6 @@ curl -X GET "http://cart-service.lvh.me/api/cart"
 curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
   -d '{ "promotionCode": "PROM20" }'
 
-curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
-  -d '{ "promotionCode": "PROM20" }'
-
 curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
   -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
 ```
