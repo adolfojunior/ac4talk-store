@@ -29,7 +29,7 @@ cd ac4talk-store
 
 We will need [Docker](https://www.docker.com) to run Consul/HAProxy and all the services.
 
-To build the project you need *Java 8* (You can use Docker to not mess with your environment)
+To build the project you need **Java 8** (You can use Docker to not mess with your environment)
 
 Example of a build using docker:
 
@@ -122,5 +122,5 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-Thanks to https://github.com/levicook for the lvh.me domain trick :)
+Thank's to https://github.com/levicook for the lvh.me domain trick :)
 
