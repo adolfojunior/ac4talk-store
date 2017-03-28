@@ -12,9 +12,9 @@ Sample Store application composed by 3 microservices.
 
 
 
-**API** - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)
-**CLIENT** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.
-**SERVICE** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS.
+**API** - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)  
+**CLIENT** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.  
+**SERVICE** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS.  
 
 **CORE SERVICE** - Project that provides configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
 
