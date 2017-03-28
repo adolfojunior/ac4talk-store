@@ -1,9 +1,8 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: product-service
-
+  profiles:
+    active: dev
 
 server:
   port: 8081
@@ -17,7 +16,6 @@ spring:
     password: 
     data: classpath:data-h2.sql
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: create-drop
   h2:

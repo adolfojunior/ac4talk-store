@@ -20,8 +20,8 @@ spring:
       host: localhost
       port: 8500
       discovery:
-        tags: ${spring.application.name},${HOSTNAME}
-        instanceId: ${spring.application.name}-${HOSTNAME}-${server.port}
+        tags: ${spring.application.name},${HOSTNAME:localhost}
+        instanceId: ${spring.application.name}-${HOSTNAME:localhost}-${server.port}
         healthCheckPath: ${management.context-path}/health
         healthCheckInterval: 5s
 

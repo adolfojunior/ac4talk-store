@@ -11,6 +11,19 @@ rest:
   client:
     config:
       product:
-        url: http://product.lvh.me:8081/api
+        url: http://product-service.lvh.me:8081/api
       promotion:
-        url: http://promotion.lvh.me:8082/api
+        url: http://promotion-service.lvh.me:8082/api
+
+---
+spring:
+  profiles: consul
+
+rest:
+  client:
+    config:
+      # UTL should go through HAProxy
+      product:
+        url: http://product-service.lvh.me/api
+      promotion:
+        url: http://promotion-service.lvh.me/api

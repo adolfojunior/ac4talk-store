@@ -1,6 +1,76 @@
+version: '3'
+
+services:
+
+  consul:
+    image: progrium/consul
+    hostname: consul
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+    networks:
+      - consul-net
+    command: -server -bootstrap -ui-dir /ui
+
+  haproxy:
+    image: asteris/haproxy-consul
+    hostname: haproxy
+    restart: always
+    environment:
+      - HAPROXY_DOMAIN=lvh.me
+      - CONSUL_CONNECT=consul:8500
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - consul-net
+
+  promotion:
+    image: openjdk:8-alpine
+    environment:
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_PROFILES_ACTIVE=dev,consul
+      - SERVER_PORT=8080
+    volumes:
+      - ./promotion-service/build/libs:/usr/src/app
+    ports:
+      - "8080"
+    networks:
+      - consul-net
+    working_dir: /usr/src/app
+    command: java -jar promotion-service-0.0.1-SNAPSHOT.jar
+
+  product:
+    image: openjdk:8-alpine
+    environment:
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_PROFILES_ACTIVE=dev,consul
+      - SERVER_PORT=8080
+    volumes:
+      - ./product-service/build/libs:/usr/src/app
+    ports:
+      - "8080"
+    networks:
+      - consul-net
+    working_dir: /usr/src/app
+    command: java -jar product-service-0.0.1-SNAPSHOT.jar
+
+  cart:
+    image: openjdk:8-alpine
+    environment:
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_PROFILES_ACTIVE=dev,consul
+      - SERVER_PORT=8080
+    volumes:
+      - ./cart-service/build/libs:/usr/src/app
+    ports:
+      - "8080"
+    networks:
+      - consul-net
+    working_dir: /usr/src/app
+    command: java -jar cart-service-0.0.1-SNAPSHOT.jar
+
 networks:
   consul-net:
     driver: bridge
-  default:
-    external:
-      name: bridge

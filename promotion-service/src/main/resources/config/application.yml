@@ -1,8 +1,8 @@
 spring:
-  profiles:
-    active: dev,consul
   application:
     name: promotion-service
+  profiles:
+    active: dev
     
 server:
   port: 8082
