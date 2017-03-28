@@ -2,19 +2,34 @@
 
 Sample Store application composed by 3 microservices.
 
-- `Core Service (base-service-[api|client|starter])`  
+- *Core Service* `(base-service-[api|client|starter])`  
     Common classes and a few `Spring Boot Auto Configuration`
-- `Promotion Service (promotion-[api|client|service])`
-- `Product Service (product-[api|client|service])`
-- `Cart Service (cart-[api|client|service])`
-- Consul as Service Discovery and Configuration Storage.
-- HAProxy that use Consul Template to update the instances.
+- *Promotion Service* `(promotion-[api|client|service])`
+- *Product Service* `(product-[api|client|service])`
+- *Cart Service* `(cart-[api|client|service])`
+- *Consul* as Service Discovery and Configuration Storage.
+- *HAProxy* that use Consul Template to update the instances.
+
+*API* - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)
+*CLIENT* - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.
+*SERVICE* - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS.
+
+*CORE SERVICE* - Project that provides configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
 
 ### Build
 
-You will need [Docker](https://www.docker.com)
+Get the project:
 
-To build the project you need JDK 8 (or run it using docker)
+```shell
+git clone https://github.com/adolfojunior/ac4talk-store.git
+cd ac4talk-store
+```
+
+We will need [Docker](https://www.docker.com) to run Consul/HAProxy and all the services.
+
+To build the project you need *Java 8* (You can use Docker to not mess with your environment)
+
+Example of a build using docker:
 
 ```shell
 docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
@@ -35,9 +50,13 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 ./gradlew :cart-service:bootRun
 ```
 
-## Providing a Docker envinroment with Consul and HAProxy
+## Running Consul and HAProxy
 
-- Startup `Consul`
+We are using [docker-compose](docker-compose.yaml) to make our live easier!
+
+### Startup [Consul](https://github.com/hashicorp/consul)
+
+Consul provide an easy way to let services register themselves and to discovery other services via a DNS or HTTP interface.
 
 ```shell
 docker-compose up -d consul
@@ -47,7 +66,13 @@ docker-compose logs -f consul
 
 Access the Consul UI (http://consul.lvh.me:8500/ui/#/dc1/services)
 
-- Startup `HAProxy`
+### Startup [HAProxy](https://cbonte.github.io/haproxy-dconv/)
+
+HAProxy is a very fast and reliable solution for high availability, load balancing, and proxying for TCP and HTTP-based applications.
+
+We will use [Consul Template](https://github.com/hashicorp/consul-template) to update the HAProxy configuration everytime a new service register/deregister itself.
+
+As part of the configuration, each instance registered on Consul, will provide Tags, to be used as subdomains when 
 
 ```shell
 docker-compose up -d haproxy
@@ -59,13 +84,16 @@ docker-compose logs -f haproxy
 
 ```shell
 docker-compose up -d promotion product cart
+# looking at the logs
 docker-compose logs -f ${SERVICE}
+# accessing the instance
+docker-compose exec ${SERVICE} sh
 ```
 
 - Check if `consul-template` is updating the config
 
 ```shell
-docker exec -it ac4talkstore_haproxy_1 cat /haproxy/haproxy.cfg
+docker-compose exec haproxy cat /haproxy/haproxy.cfg
 ```
 
 ### Testing services
@@ -78,6 +106,9 @@ curl -X GET "http://product-service.lvh.me/api/product/p1"
 
 curl -X GET "http://cart-service.lvh.me/api/cart"
 
+curl -X POST "http://cart-service.lvh.me/api/cart/6bec2f6d-227e-4906-8669-6395c36b5279/6bec2f6d-227e-4906-8669-6395c36b5279/apply-promotion" \
+  -d '{ "promotionCode": "PROM20" }'
+
 curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
   -d '{ "promotionCode": "PROM20" }'
 
@@ -86,11 +117,7 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
 ```
 
 ### References:
-- [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
-- [Consul](https://github.com/hashicorp/consul)
-- [Consul Template](https://github.com/hashicorp/consul-template)
-- [HAProxy](https://cbonte.github.io/haproxy-dconv/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
 Thanks to https://github.com/levicook for the lvh.me domain trick :)
