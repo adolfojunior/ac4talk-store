@@ -42,7 +42,7 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 # build it!
 ./gradlew clean build
 
-# run each one
+# run each searvice
 ./gradlew :promotion-service:bootRun
 ./gradlew :product-service:bootRun
 ./gradlew :cart-service:bootRun
@@ -52,7 +52,7 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 
 We are using [docker-compose](docker-compose.yaml) to make our live easier!
 
-### Startup [Consul](https://github.com/hashicorp/consul)
+### Running [Consul](https://github.com/hashicorp/consul)
 
 Consul provide an easy way to let services register themselves and to discovery other services via a DNS or HTTP interface.
 
@@ -64,13 +64,13 @@ docker-compose logs -f consul
 
 Access the Consul UI (http://consul.lvh.me:8500/ui/#/dc1/services)
 
-### Startup [HAProxy](https://cbonte.github.io/haproxy-dconv/)
+### Running [HAProxy](https://cbonte.github.io/haproxy-dconv/)
 
 HAProxy is a very fast and reliable solution for high availability, load balancing, and proxying for TCP and HTTP-based applications.
 
 We will use [Consul Template](https://github.com/hashicorp/consul-template) to update the HAProxy configuration everytime a new service register/deregister itself.
 
-As part of the configuration, each instance registered on Consul, will provide Tags, to be used as subdomains when 
+As part of the configuration, each instance registered on Consul will provide Tags that will be used as subdomains.
 
 ```shell
 docker-compose up -d haproxy
@@ -78,7 +78,7 @@ docker-compose up -d haproxy
 docker-compose logs -f haproxy
 ```
 
-- Startup all the services
+### Running Services
 
 ```shell
 docker-compose up -d promotion product cart
@@ -88,13 +88,15 @@ docker-compose logs -f ${SERVICE}
 docker-compose exec ${SERVICE} sh
 ```
 
-- Check if `consul-template` is updating the config
+### Testing
+
+Check if `consul-template` is updating the config
 
 ```shell
 docker-compose exec haproxy cat /haproxy/haproxy.cfg
 ```
 
-### Testing services
+Check all the RESTful Endpoints
 
 ```shell
 curl -X GET "http://promotion-service.lvh.me/api/promotion/PROM20"
@@ -115,5 +117,5 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-Thank's to https://github.com/levicook for the lvh.me domain trick :)
+Thank's to https://github.com/levicook for the `lvh.me` domain trick :)
 
