@@ -10,7 +10,7 @@ Sample Store application composed by 3 microservices.
 - **Consul** as Service Discovery and Configuration Storage.
 - **HAProxy** that use Consul Template to update the instances.  
 
-**API** - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)  
+**API** - Project that contains JAX-RS contracts and Models defined using [JSON Schema](http://json-schema.org/)  
 **CLIENT** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.  
 **SERVICE** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS. 
 
