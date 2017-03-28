@@ -5,7 +5,7 @@ Sample Store application composed by 3 microservices.
 - **Core Service** `(base-service-[api|client|starter])`  
     Common classes and a few `Spring Boot Auto Configuration`
 - **Promotion Service** `(promotion-[api|client|service])`
-- **Product Service* `(product-[api|client|service])`
+- **Product Service** `(product-[api|client|service])`
 - **Cart Service** `(cart-[api|client|service])`
 - **Consul** as Service Discovery and Configuration Storage.
 - **HAProxy** that use Consul Template to update the instances.  
