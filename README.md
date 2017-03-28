@@ -2,19 +2,21 @@
 
 Sample Store application composed by 3 microservices.
 
-- *Core Service* `(base-service-[api|client|starter])`  
+- **Core Service** `(base-service-[api|client|starter])`  
     Common classes and a few `Spring Boot Auto Configuration`
-- *Promotion Service* `(promotion-[api|client|service])`
-- *Product Service* `(product-[api|client|service])`
-- *Cart Service* `(cart-[api|client|service])`
-- *Consul* as Service Discovery and Configuration Storage.
-- *HAProxy* that use Consul Template to update the instances.
+- **Promotion Service** `(promotion-[api|client|service])`
+- **Product Service* `(product-[api|client|service])`
+- **Cart Service** `(cart-[api|client|service])`
+- **Consul** as Service Discovery and Configuration Storage.
+- **HAProxy** that use Consul Template to update the instances.  
 
-*API* - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)
-*CLIENT* - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.
-*SERVICE* - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS.
 
-*CORE SERVICE* - Project that provides configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
+
+**API** - Project that contains JAX-RS contracts and Models defines using [JSON Schema](http://json-schema.org/)  
+**CLIENT** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.  
+**SERVICE** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS.  
+
+**CORE SERVICE** - Project that provides configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
 
 ### Build
 
@@ -27,7 +29,7 @@ cd ac4talk-store
 
 We will need [Docker](https://www.docker.com) to run Consul/HAProxy and all the services.
 
-To build the project you need *Java 8* (You can use Docker to not mess with your environment)
+To build the project you need **Java 8** (You can use Docker to not mess with your environment)
 
 Example of a build using docker:
 
@@ -106,7 +108,7 @@ curl -X GET "http://product-service.lvh.me/api/product/p1"
 
 curl -X GET "http://cart-service.lvh.me/api/cart"
 
-curl -X POST "http://cart-service.lvh.me/api/cart/6bec2f6d-227e-4906-8669-6395c36b5279/6bec2f6d-227e-4906-8669-6395c36b5279/apply-promotion" \
+curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
   -d '{ "promotionCode": "PROM20" }'
 
 curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
@@ -120,5 +122,5 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-Thanks to https://github.com/levicook for the lvh.me domain trick :)
+Thank's to https://github.com/levicook for the lvh.me domain trick :)
 
