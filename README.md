@@ -14,7 +14,7 @@ Sample Store application composed by 3 microservices.
 **CLIENT** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) library that auto configure a RestClient instance that use the JAX-RS contract.  
 **SERVICE** - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application that implements the JAX-RS. 
 
-### Build
+## Build
 
 Get the project:
 
