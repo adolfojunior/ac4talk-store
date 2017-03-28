@@ -50,8 +50,9 @@ class ApiProject implements Plugin<Project> {
         apply plugin: "jsonschema2pojo"
 
         dependencies {
-          compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
-          compile("javax.validation:validation-api:1.1.0.Final")
+          compile("javax.ws.rs:javax.ws.rs-api:${jaxrsApiVersion}")
+          compile("javax.validation:validation-api:${validationApiVersion}")
+          compile("org.apache.commons:commons-lang3:${commonsLang3Version}")
           compile("com.fasterxml.jackson.core:jackson-databind")
         }
 
@@ -70,9 +71,9 @@ class ApiProject implements Plugin<Project> {
           generateBuilders = true
           useDoubleNumbers = true
           useLongIntegers = true
-          useCommonsLang3 = false
-          includeToString = false
-          includeHashcodeAndEquals = false
+          useCommonsLang3 = true
+          includeToString = true
+          includeHashcodeAndEquals = true
           includeJsr303Annotations = true
           serializable = true
           removeOldOutput = true

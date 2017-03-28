@@ -13,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -62,7 +65,7 @@ public class Promotion implements Serializable
     @JsonIgnore
     @Valid
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -5690172190995570453L;
+    private final static long serialVersionUID = -9064643647502179485L;
 
     /**
      * 
@@ -199,6 +202,11 @@ public class Promotion implements Serializable
         return this;
     }
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -212,6 +220,23 @@ public class Promotion implements Serializable
     public Promotion withAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
         return this;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(code).append(discountPercentage).append(discountValue).append(minimunValue).append(maximunDiscount).append(startingDate).append(expirationDate).append(additionalProperties).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if ((other instanceof Promotion) == false) {
+            return false;
+        }
+        Promotion rhs = ((Promotion) other);
+        return new EqualsBuilder().append(code, rhs.code).append(discountPercentage, rhs.discountPercentage).append(discountValue, rhs.discountValue).append(minimunValue, rhs.minimunValue).append(maximunDiscount, rhs.maximunDiscount).append(startingDate, rhs.startingDate).append(expirationDate, rhs.expirationDate).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }
