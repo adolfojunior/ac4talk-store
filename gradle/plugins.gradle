@@ -77,6 +77,7 @@ class ApiProject implements Plugin<Project> {
           includeJsr303Annotations = true
           serializable = true
           removeOldOutput = true
+          fileExtensions = ['json']
         }
       }
    }

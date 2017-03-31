@@ -1,8 +1,8 @@
 package com.ac4talk.store.product.repository;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
@@ -12,5 +12,5 @@ public interface ProductRepository extends Repository<ProductEntity, String> {
 
   Optional<ProductEntity> findById(String id);
 
-  Stream<ProductEntity> findAll(Pageable pageable);
+  Page<ProductEntity> findAll(Pageable pageable);
 }

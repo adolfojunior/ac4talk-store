@@ -6,6 +6,10 @@ spring:
   jackson:
     serialization:
       write_dates_as_timestamps: false
+  cloud:
+    consul:
+      discovery:
+        enabled: false
 
 management:
   context-path: /app
@@ -20,6 +24,7 @@ spring:
       host: localhost
       port: 8500
       discovery:
+        enabled: true
         tags: ${spring.application.name},${HOSTNAME:localhost}
         instanceId: ${spring.application.name}-${HOSTNAME:localhost}-${server.port}
         healthCheckPath: ${management.context-path}/health

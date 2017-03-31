@@ -17,7 +17,7 @@ rest:
 
 ---
 spring:
-  profiles: consul
+  profiles: haproxy
 
 rest:
   client:
@@ -27,3 +27,16 @@ rest:
         url: http://product-service.lvh.me/api
       promotion:
         url: http://promotion-service.lvh.me/api
+
+---
+spring:
+  profiles: consul
+
+rest:
+  client:
+    config:
+      # UTL should go through HAProxy
+      product:
+        url: http://product-service.service.consul:8080/api
+      promotion:
+        url: http://promotion-service.service.consul:8080/api

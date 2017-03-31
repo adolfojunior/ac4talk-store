@@ -31,7 +31,7 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
 
   @Override
   public List<Product> findAll(final Pageable pageable) {
-    final Stream<ProductEntity> result = productRepository.findAll(pageable);
+    final Stream<ProductEntity> result = productRepository.findAll(pageable).getContent().stream();
     return result.map(mapper(Product.class)).collect(Collectors.toList());
   }
 

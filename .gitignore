@@ -6,4 +6,5 @@ bin/
 build/
 *.log
 
+!*.sql
 !gradle/wrapper/*.jar

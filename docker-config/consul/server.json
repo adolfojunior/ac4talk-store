@@ -1,0 +1,9 @@
+{
+  "data_dir": "/tmp/data",
+  "client_addr": "0.0.0.0",
+  "recursor": "127.0.0.11",
+  "disable_update_check": true,
+  "ports": {
+    "dns": 53
+  }
+}

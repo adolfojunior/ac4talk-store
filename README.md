@@ -62,6 +62,12 @@ docker-compose up -d consul
 docker-compose logs -f consul
 ```
 
+*** Important: get the Consul IP to use as DNS on all the service instances
+
+```
+docker network inspect ac4talkstore_consul-net
+```
+
 Access the Consul UI (http://consul.lvh.me:8500/ui/#/dc1/services)
 
 ### Running [HAProxy](https://cbonte.github.io/haproxy-dconv/)
@@ -90,13 +96,19 @@ docker-compose exec ${SERVICE} sh
 
 ### Testing
 
-Check if `consul-template` is updating the config
+- Check if `consul-template` is updating the config
 
 ```shell
 docker-compose exec haproxy cat /haproxy/haproxy.cfg
 ```
 
-Check all the RESTful Endpoints
+- Check consul DNS
+
+```
+docker-compose run service-test ping consul.service.consul
+```
+
+- Check all the RESTful Endpoints
 
 ```shell
 curl -X GET "http://promotion-service.lvh.me/api/promotion/PROM20"
@@ -106,10 +118,12 @@ curl -X GET "http://product-service.lvh.me/api/product/p1"
 
 curl -X GET "http://cart-service.lvh.me/api/cart"
 
-curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-promotion" \
+curl -X POST "http://cart-service.lvh.me/api/cart/7acc5201-006f-4193-b67e-0dfc0101cbf1/7acc5201-006f-4193-b67e-0dfc0101cbf1/apply-promotion" \
+  -H "Content-Type: application/json" \
   -d '{ "promotionCode": "PROM20" }'
 
-curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
+curl -X POST "http://cart-service.lvh.me/api/cart/7acc5201-006f-4193-b67e-0dfc0101cbf1/7acc5201-006f-4193-b67e-0dfc0101cbf1/apply-items" \
+  -H "Content-Type: application/json" \
   -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
 ```
 
