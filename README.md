@@ -130,8 +130,13 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
 ```
 
 ## References:
+- [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
+- [Consul](https://github.com/hashicorp/consul)
+- [Consul Template](https://github.com/hashicorp/consul-template)
+- [HAProxy](https://cbonte.github.io/haproxy-dconv/)
+- [Docker](https://www.docker.com)
 - [Docker Compose](https://docs.docker.com/compose/)
+- [JSON Schema](http://json-schema.org/) 
 
-Thank's to https://github.com/levicook for the `lvh.me` domain trick :)
 
