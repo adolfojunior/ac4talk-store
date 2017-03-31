@@ -1,4 +1,4 @@
-# Spring Boot Microservices Sample
+# Microservices with Consul, HAProxy and Spring Boot
 
 Sample Store application composed by 3 microservices.
 
@@ -48,19 +48,19 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 ./gradlew :cart-service:bootRun
 ```
 
-## Running everything on Docker
+## Running everything on Docker :whale:
 
-**We just need to do `docker-compose up -d`**
+**Just do it `docker-compose up -d`** :rage3:
 
 To bring everething down, we just need to do `docker-compose down`
 
 Is possible to scale up some services. Just do `docker-compose scale $SERVICE=N`
 
-## Running Consul and HAProxy
+## Running it step-by-step
 
 We are using [docker-compose](docker-compose.yaml) to make our live easier!
 
-### Running it step-by-step [Consul](https://github.com/hashicorp/consul)
+### Running [Consul](https://github.com/hashicorp/consul) :squirrel:
 
 Consul provide an easy way to let services register themselves and to discovery other services via a DNS or HTTP interface.
 
@@ -72,7 +72,7 @@ docker-compose logs -f consul
 
 Access the `Consul Web UI` (http://consul.lvh.me:8500/ui) 
 
-## Running [HAProxy](https://cbonte.github.io/haproxy-dconv/)
+## Running [HAProxy](https://cbonte.github.io/haproxy-dconv/) :vertical_traffic_light:
 
 HAProxy is a very fast and reliable solution for high availability, load balancing, and proxying for TCP and HTTP-based applications.
 
@@ -86,7 +86,7 @@ docker-compose up -d haproxy
 docker-compose logs -f haproxy
 ```
 
-## Running Services
+## Running Services :space_invader:
 
 ```shell
 docker-compose up -d promotion product cart
@@ -129,7 +129,7 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
   -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
 ```
 
-### References:
+## References:
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
