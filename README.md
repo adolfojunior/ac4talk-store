@@ -48,11 +48,19 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 ./gradlew :cart-service:bootRun
 ```
 
+### Running everything on Docker
+
+** We just need to do `docker-compose up -d`
+
+To bring everething down, we just need to do `docker-compose down`
+
+Is possible to scale up some services. Just do `docker-compose scale $SERVICE=N`
+
 ## Running Consul and HAProxy
 
 We are using [docker-compose](docker-compose.yaml) to make our live easier!
 
-### Running [Consul](https://github.com/hashicorp/consul)
+### Running it step-by-step [Consul](https://github.com/hashicorp/consul)
 
 Consul provide an easy way to let services register themselves and to discovery other services via a DNS or HTTP interface.
 
@@ -64,7 +72,7 @@ docker-compose logs -f consul
 
 Access the `Consul Web UI` (http://consul.lvh.me:8500/ui) 
 
-### Running [HAProxy](https://cbonte.github.io/haproxy-dconv/)
+## Running [HAProxy](https://cbonte.github.io/haproxy-dconv/)
 
 HAProxy is a very fast and reliable solution for high availability, load balancing, and proxying for TCP and HTTP-based applications.
 
@@ -78,7 +86,7 @@ docker-compose up -d haproxy
 docker-compose logs -f haproxy
 ```
 
-### Running Services
+## Running Services
 
 ```shell
 docker-compose up -d promotion product cart

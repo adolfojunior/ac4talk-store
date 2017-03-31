@@ -13,7 +13,7 @@ services:
       - "8400"
       - "53"
     volumes:
-      - ./docker-config/consul:/config:ro
+      - ./docker/consul:/config:ro
     environment:
       - CONSUL_ALLOW_PRIVILEGED_PORTS=true
     networks:
@@ -33,17 +33,10 @@ services:
     networks:
       - consul-net
 
-  service-test:
-    build:
-      context: .
-      dockerfile: docker-config/service.Dockerfile
-    networks:
-      - consul-net
-
   promotion:
     build:
       context: .
-      dockerfile: docker-config/service.Dockerfile
+      dockerfile: docker/service/Dockerfile
     volumes:
       - ./promotion-service/build/libs:/app
     ports:
@@ -55,7 +48,7 @@ services:
   product:
     build:
       context: .
-      dockerfile: docker-config/service.Dockerfile
+      dockerfile: docker/service/Dockerfile
     volumes:
       - ./product-service/build/libs:/app
     ports:
@@ -67,7 +60,7 @@ services:
   cart:
     build:
       context: .
-      dockerfile: docker-config/service.Dockerfile
+      dockerfile: docker/service/Dockerfile
     volumes:
       - ./cart-service/build/libs:/app
     ports:
@@ -75,6 +68,13 @@ services:
     networks:
       - consul-net
     command: java -jar cart-service-0.0.1-SNAPSHOT.jar
+
+  test-service:
+    build:
+      context: .
+      dockerfile: docker/service/Dockerfile
+    networks:
+      - consul-net
 
 networks:
   consul-net:

@@ -1,6 +1,6 @@
 FROM openjdk:8-alpine
 
-COPY ./docker-config/service-entrypoint.sh /entrypoint.sh
+COPY ./docker/service/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
