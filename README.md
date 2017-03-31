@@ -60,7 +60,7 @@ Is possible to scale up some services. Just do `docker-compose scale $SERVICE=N`
 
 We are using [docker-compose](docker-compose.yaml) to make our live easier!
 
-### Running [Consul](https://github.com/hashicorp/consul) :squirrel:
+### [Consul](https://github.com/hashicorp/consul) :squirrel:
 
 Consul provide an easy way to let services register themselves and to discovery other services via a DNS or HTTP interface.
 
@@ -72,7 +72,7 @@ docker-compose logs -f consul
 
 Access the `Consul Web UI` (http://consul.lvh.me:8500/ui) 
 
-## Running [HAProxy](https://cbonte.github.io/haproxy-dconv/) :vertical_traffic_light:
+### [HAProxy](https://cbonte.github.io/haproxy-dconv/) :vertical_traffic_light:
 
 HAProxy is a very fast and reliable solution for high availability, load balancing, and proxying for TCP and HTTP-based applications.
 
@@ -86,7 +86,7 @@ docker-compose up -d haproxy
 docker-compose logs -f haproxy
 ```
 
-## Running Services :space_invader:
+## Services :space_invader:
 
 ```shell
 docker-compose up -d promotion product cart
