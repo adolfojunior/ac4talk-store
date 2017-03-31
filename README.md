@@ -48,9 +48,9 @@ docker run -it --rm -v $(pwd):/app -w /app openjdk:8 ./gradlew --version
 ./gradlew :cart-service:bootRun
 ```
 
-### Running everything on Docker
+## Running everything on Docker
 
-** We just need to do `docker-compose up -d`
+**We just need to do `docker-compose up -d`**
 
 To bring everething down, we just need to do `docker-compose down`
 
