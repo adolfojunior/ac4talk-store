@@ -3,7 +3,7 @@
 Sample Store application composed by 3 microservices.
 
 - **Core Service** `(base-service-[api|client|starter])`  
-    Provide auto configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
+    Framework to provide auto configuration for Consul, Jersey and JAX-RS Clients. Also have interceptors for exceptions and base classes for Messages and Generic endpoint responses.
 - **Promotion Service** `(promotion-[api|client|service])`
 - **Product Service** `(product-[api|client|service])`
 - **Cart Service** `(cart-[api|client|service])`
