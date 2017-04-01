@@ -3,7 +3,9 @@ version: '3'
 services:
 
   consul:
-    image: consul
+    build:
+      context: .
+      dockerfile: docker/consul/Dockerfile
     hostname: consul
     user: root
     ports:
@@ -18,7 +20,7 @@ services:
       - CONSUL_ALLOW_PRIVILEGED_PORTS=true
     networks:
       - consul-net
-    command: consul agent -server -bootstrap-expect=1 -config-dir=/config -ui
+    command: agent -server -bootstrap-expect=1 -config-dir=/config -ui
 
   haproxy:
     image: asteris/haproxy-consul
