@@ -129,6 +129,10 @@ curl -X POST "http://cart-service.lvh.me/api/cart/{id}/{version}/apply-items" \
   -d '{ "items": [{ "productId": "p1", "qtd": 1 }] }'
 ```
 
+## Presentation
+
+  https://adolfojunior.github.io/ac4talk-store-presentation/#/
+
 ## References:
 - [Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 - [Spring Cloud Consul](https://cloud.spring.io/spring-cloud-consul/)
